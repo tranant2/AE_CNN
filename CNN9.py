@@ -26,6 +26,7 @@ epoch2 = 5
 
 # Make a function to get data from a list of files
 hdf5_dir = "/mnt/gs18/scratch/users/tranant2/Distro_LessVariation2"
+main_dir = "/mnt/home/tranant2/Desktop/MachineLearning/TRACK/CNN9"
 files = os.listdir(hdf5_dir)
 hdf5_files1 = [(hdf5_dir + '/'+i) for i in files ]
 
@@ -75,7 +76,7 @@ train_losses, counter = train_model(model, n_epochs, train_loader, optimizer, de
 
 fig, ax = plt.subplots(1,1,figsize=(8, 8))  # a figure with a single Axes
 plt.plot(train_losses)
-fig.savefig(f"/mnt/home/tranant2/Desktop/MachineLearning/TRACK/CNN9/loss_{test_number}.png", dpi = 100)
+fig.savefig(f"{main_dir}/loss_{test_number}.png", dpi = 100)
 
 examples = enumerate(test_loader)
 batch_idx, (test_data, test_targets) = next(examples)
@@ -90,7 +91,7 @@ for j in range(5):
         plt.title(f"n:{i+1+j*6}")
         plt.xticks([])
         plt.yticks([])
-fig.savefig(f"/mnt/home/tranant2/Desktop/MachineLearning/TRACK/CNN9/OriginalPhaseSpace_{test_number}.png", dpi = 100)
+fig.savefig(f"{main_dir}/OriginalPhaseSpace_{test_number}.png", dpi = 100)
 
 voltages = test_data[0].to(device)
 distro_0 = test_data[1].to(device)
@@ -134,7 +135,7 @@ for j in range(5):
         plt.title(f"n:{i+1+j*6}")
         plt.xticks([])
         plt.yticks([])
-fig.savefig(f"/mnt/home/tranant2/Desktop/MachineLearning/TRACK/CNN9/ReconstructedPhaseSpace_{test_number}.png", dpi = 100)
+fig.savefig(f"{main_dir}/ReconstructedPhaseSpace_{test_number}.png", dpi = 100)
 
 fig = plt.figure(figsize=(12,12))
 for i in range(4):
@@ -145,6 +146,6 @@ for i in range(4):
     plt.ylabel('true')
     plt.xlim(0,10000)
     plt.ylim(0,10000)
-fig.savefig(f"/mnt/home/tranant2/Desktop/MachineLearning/TRACK/CNN9/Losses_{test_number}.png", dpi = 100)
+fig.savefig(f"{main_dir}/Losses_{test_number}.png", dpi = 100)
 
-torch.save(model.state_dict(), f"/mnt/ufs18/home-032/tranant2/Desktop/MachineLearning/TRACK/CNN9/model_{test_number}.pth")
+torch.save(model.state_dict(), f"{main_dir}/model_{test_number}.pth")
