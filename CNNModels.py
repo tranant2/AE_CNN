@@ -60,7 +60,7 @@ class VAE(nn.Module):
         super(VAE, self).__init__()
         latent_array = [32,16,16,16,16,32]
         # Encoders
-        self.encoders = nn.ModuleList([Encoder(i) for i in latent_array])
+        self.encoders = nn.ModuleList([Encoder(i) for i in latent_array])  # Need to use ModuleList to properly register modules
         # Decoders
         self.decoders = nn.ModuleList([Decoder(i) for i in latent_array])
         # N latent dimention
