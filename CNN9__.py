@@ -26,6 +26,7 @@ epoch2 = 5
 
 # Make a function to get data from a list of files
 hdf5_dir = "/mnt/gs18/scratch/users/tranant2/Distro_LessVariation2"
+main_dir = "/mnt/home/tranant2/Desktop/MachineLearning/TRACK/CNN9"
 files = os.listdir(hdf5_dir)
 hdf5_files1 = [(hdf5_dir + '/'+i) for i in files ]
 
@@ -51,7 +52,7 @@ print(f"Computation will be happening on the {device}")
 #-------------------------------------------------------------------Training 3--------------------------------------------------------
 print("Finally, on to training 3: To fine tune things. Makue sure no overtraining")
 model = VAE().to(device)
-model.load_state_dict(torch.load( f"/mnt/ufs18/home-032/tranant2/Desktop/MachineLearning/TRACK/CNN9/model_{test_number}.pth"), strict=False)
+model.load_state_dict(torch.load( f"{main_dir}/model_{test_number}.pth"), strict=False)
 
 # Code add back gradient
 for name, param in model.named_parameters():
@@ -69,7 +70,7 @@ train_losses, counter = train_model3(model, n_epochs, train_loader, optimizer3, 
 
 fig, ax = plt.subplots(1,1,figsize=(8, 8))  # a figure with a single Axes
 plt.plot(train_losses)
-fig.savefig(f"/mnt/home/tranant2/Desktop/MachineLearning/TRACK/CNN9/loss_{test_number}_3.png", dpi = 100)
+fig.savefig(f"{main_dir}/loss_{test_number}_3.png", dpi = 100)
 
 examples = enumerate(test_loader)
 batch_idx, (test_data, test_targets) = next(examples)
@@ -116,7 +117,7 @@ for j in range(5):
         plt.title(f"n:{i+1+j*6}")
         plt.xticks([])
         plt.yticks([])
-fig.savefig(f"/mnt/home/tranant2/Desktop/MachineLearning/TRACK/CNN9/ReconstructedPhaseSpace_{test_number}_3.png", dpi = 100)
+fig.savefig(f"{main_dir}/ReconstructedPhaseSpace_{test_number}_3.png", dpi = 100)
 
 fig = plt.figure(figsize=(12,12))
 for i in range(4):
@@ -127,6 +128,6 @@ for i in range(4):
     plt.ylabel('true')
     plt.xlim(0,10000)
     plt.ylim(0,10000)
-fig.savefig(f"/mnt/home/tranant2/Desktop/MachineLearning/TRACK/CNN9/Losses_{test_number}_3.png", dpi = 100)
+fig.savefig(f"{main_dir}/Losses_{test_number}_3.png", dpi = 100)
 
-torch.save(model.state_dict(), f"/mnt/ufs18/home-032/tranant2/Desktop/MachineLearning/TRACK/CNN9/model___{test_number}.pth")
+torch.save(model.state_dict(), f"{main_dir}/model___{test_number}.pth")
